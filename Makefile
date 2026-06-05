@@ -9,7 +9,7 @@ GOGET=$(GOCMD) get
 GOMOD=$(GOCMD) mod
 GOFMT=gofmt
 
-LD_FLAGS=-ldflags "-X github.com/hackerspace/hacktrackmmu-cli/internal/version.Version=$(VERSION) \
+LD_FLAGS=-ldflags "-X github.com/hackerspace/hacktrackmmu-cli/internal/version.Version=$(VERSION)"
 
 .PHONY: all build clean test fmt tidy install run
 

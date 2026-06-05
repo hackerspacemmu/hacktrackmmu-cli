@@ -9,12 +9,12 @@ var (
 )
 
 type Info struct {
-	Version   string `json:"version"`
+	Version string `json:"version"`
 }
 
 func GetInfo() Info {
 	return Info{
-		Version:   Version,
+		Version: Version,
 	}
 }
 

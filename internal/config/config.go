@@ -11,8 +11,8 @@ import (
 )
 
 type Config struct {
-	LogLevel string         `mapstructure:"log_level"`
-	APIUrl	 string         `mapstructure:"api_url"`
+	LogLevel string `mapstructure:"log_level"`
+	APIUrl   string `mapstructure:"api_url"`
 }
 
 func Load(cfgFile string) (*Config, error) {

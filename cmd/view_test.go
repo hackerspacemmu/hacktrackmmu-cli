@@ -32,6 +32,16 @@ func TestPrintMemberDetails(t *testing.T) {
 							Date:   "2026-05-15",
 						},
 					},
+					{
+						ID:          102,
+						Category:    "progress_talk",
+						Description: "This is a very long update description that should definitely be wrapped because it exceeds the standard terminal width of eighty characters.",
+						Meetup: MeetupInfo{
+							ID:     6,
+							Number: 43,
+							Date:   "2026-06-01",
+						},
+					},
 				},
 			},
 		},
@@ -56,6 +66,8 @@ func TestPrintMemberDetails(t *testing.T) {
 		"Meetup #42",
 		"2026-05-15",
 		"Initial demo of project Alpha",
+		"This is a very long update",
+		"\n          description that should definitely be wrapped",
 	}
 
 	for _, expected := range expectedSubstrings {

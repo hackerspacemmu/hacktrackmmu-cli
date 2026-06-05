@@ -197,8 +197,12 @@ func printMemberDetails(w io.Writer, member MemberDetail) {
 					coloredMeetupNum := colorize(meetupNum, ansiYellow)
 					coloredMeetupDate := colorize(meetupDate, ansiWhite)
 
+					prefixLen := 25 + len(catStr) + len(meetupNum) + len(meetupDate)
+					subsequentIndent := "          " // 10 spaces
+					wrappedDesc := wrapText(formatStr(update.Description), 80, prefixLen, subsequentIndent)
+
 					fmt.Fprintf(w, "        * %s (Meetup %s, %s): %s\n",
-						coloredCat, coloredMeetupNum, coloredMeetupDate, formatStr(update.Description))
+						coloredCat, coloredMeetupNum, coloredMeetupDate, wrappedDesc)
 				}
 			}
 			fmt.Fprintln(w)
@@ -275,6 +279,35 @@ func formatCategory(c string) string {
 	default:
 		return formatStr(c)
 	}
+}
+
+func wrapText(text string, limit int, firstLinePrefixLen int, subsequentIndent string) string {
+	words := strings.Fields(strings.TrimSpace(text))
+	if len(words) == 0 {
+		return ""
+	}
+
+	var result strings.Builder
+	currentLineLen := firstLinePrefixLen
+
+	for i, word := range words {
+		wordLen := len(word)
+
+		if i == 0 {
+			result.WriteString(word)
+			currentLineLen += wordLen
+		} else {
+			if currentLineLen+1+wordLen > limit {
+				result.WriteString("\n" + subsequentIndent + word)
+				currentLineLen = len(subsequentIndent) + wordLen
+			} else {
+				result.WriteString(" " + word)
+				currentLineLen += 1 + wordLen
+			}
+		}
+	}
+
+	return result.String()
 }
 
 func init() {

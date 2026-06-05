@@ -113,29 +113,65 @@ var viewCmd = &cobra.Command{
 	},
 }
 
+const (
+	ansiReset      = "\033[0m"
+	ansiBold       = "\033[1m"
+	ansiRed        = "\033[31m"
+	ansiGreen      = "\033[32m"
+	ansiYellow     = "\033[33m"
+	ansiBlue       = "\033[34m"
+	ansiMagenta    = "\033[35m"
+	ansiCyan       = "\033[36m"
+	ansiWhite      = "\033[37m"
+	ansiBoldCyan   = "\033[1;36m"
+	ansiBoldGreen  = "\033[1;32m"
+	ansiBoldYellow = "\033[1;33m"
+	ansiBoldBlue   = "\033[1;34m"
+	ansiBoldWhite  = "\033[1;37m"
+)
+
+func colorize(text string, ansiCode string) string {
+	if !isTerminal() {
+		return text
+	}
+	return ansiCode + text + ansiReset
+}
+
 func printMemberDetails(w io.Writer, member MemberDetail) {
 	divider := strings.Repeat("=", 80)
-	fmt.Fprintln(w, divider)
-	fmt.Fprintf(w, "MEMBER DETAILS: %s\n", formatStr(member.Name))
-	fmt.Fprintln(w, divider)
+	fmt.Fprintln(w, colorize(divider, ansiCyan))
+	fmt.Fprintf(w, "%s: %s\n", colorize("MEMBER DETAILS", ansiBoldWhite), colorize(formatStr(member.Name), ansiBoldCyan))
+	fmt.Fprintln(w, colorize(divider, ansiCyan))
 
-	fmt.Fprintln(w, "General Info")
-	fmt.Fprintf(w, "  Status:                    %s\n", formatStr(member.Status))
-	fmt.Fprintf(w, "  Progress Talks:            %d\n", member.ProgressTalkNum)
-	fmt.Fprintf(w, "  Duration Active:           %s\n", formatStr(member.DurationActive))
-	fmt.Fprintf(w, "  Avg Time Between Talks:    %s\n", formatStr(member.AvgTimeBetweenTalks))
-	fmt.Fprintf(w, "  Meetups Since Last Talk:   %d\n", member.MeetupsSinceLastTalk)
+	fmt.Fprintln(w, colorize("General Info", ansiBold))
+
+	statusStr := formatStr(member.Status)
+	statusColor := ansiWhite
+	if strings.ToLower(statusStr) == "active" {
+		statusColor = ansiBoldGreen
+	} else if strings.ToLower(statusStr) == "inactive" {
+		statusColor = ansiRed
+	} else {
+		statusColor = ansiYellow
+	}
+
+	fmt.Fprintf(w, "  Status:                    %s\n", colorize(statusStr, statusColor))
+	fmt.Fprintf(w, "  Progress Talks:            %s\n", colorize(fmt.Sprintf("%d", member.ProgressTalkNum), ansiBold))
+	fmt.Fprintf(w, "  Duration Active:           %s\n", colorize(formatStr(member.DurationActive), ansiBold))
+	fmt.Fprintf(w, "  Avg Time Between Talks:    %s\n", colorize(formatStr(member.AvgTimeBetweenTalks), ansiBold))
+	fmt.Fprintf(w, "  Meetups Since Last Talk:   %s\n", colorize(fmt.Sprintf("%d", member.MeetupsSinceLastTalk), ansiBold))
 	fmt.Fprintln(w)
 
-	fmt.Fprintln(w, divider)
-	fmt.Fprintln(w, "Projects & Talks")
-	fmt.Fprintln(w, divider)
+	fmt.Fprintln(w, colorize(divider, ansiCyan))
+	fmt.Fprintln(w, colorize("Projects & Talks", ansiBold))
+	fmt.Fprintln(w, colorize(divider, ansiCyan))
 	if len(member.Projects) == 0 {
 		fmt.Fprintln(w, "  No projects registered.")
 	} else {
 		for _, proj := range member.Projects {
-			fmt.Fprintf(w, "  - %s (category: %s)\n",
-				formatStr(proj.Name), formatStr(proj.Category))
+			projName := colorize(formatStr(proj.Name), ansiBoldYellow)
+			projCategory := colorize(formatStr(proj.Category), ansiCyan)
+			fmt.Fprintf(w, "  - %s (category: %s)\n", projName, projCategory)
 			if len(proj.Updates) == 0 {
 				fmt.Fprintln(w, "      No updates/talks recorded.")
 			} else {
@@ -146,8 +182,23 @@ func printMemberDetails(w io.Writer, member MemberDetail) {
 						meetupNum = fmt.Sprintf("#%d", update.Meetup.Number)
 					}
 					meetupDate := formatStr(update.Meetup.Date)
+
+					catStr := formatCategory(update.Category)
+					var catColor string
+					if strings.Contains(strings.ToLower(catStr), "progress") {
+						catColor = ansiBoldGreen
+					} else if strings.Contains(strings.ToLower(catStr), "idea") {
+						catColor = ansiBoldCyan
+					} else {
+						catColor = ansiBoldWhite
+					}
+
+					coloredCat := colorize(catStr, catColor)
+					coloredMeetupNum := colorize(meetupNum, ansiYellow)
+					coloredMeetupDate := colorize(meetupDate, ansiWhite)
+
 					fmt.Fprintf(w, "        * %s (Meetup %s, %s): %s\n",
-						formatCategory(update.Category), meetupNum, meetupDate, formatStr(update.Description))
+						coloredCat, coloredMeetupNum, coloredMeetupDate, formatStr(update.Description))
 				}
 			}
 			fmt.Fprintln(w)

@@ -50,7 +50,7 @@ func TestPrintMemberDetails(t *testing.T) {
 		"Duration Active:           6 months",
 		"Avg Time Between Talks:    2 weeks",
 		"Meetups Since Last Talk:   1",
-		"Projects & Talks:",
+		"Projects & Talks",
 		"- Project Alpha (category: Software)",
 		"Progress Talk",
 		"Meetup #42",

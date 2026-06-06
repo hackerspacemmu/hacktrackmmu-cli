@@ -14,11 +14,11 @@ type Session struct {
 }
 
 func getSessionFilePath() (string, error) {
-	home, err := os.UserHomeDir()
+	configDir, err := os.UserConfigDir()
 	if err != nil {
 		return "", err
 	}
-	dir := filepath.Join(home, ".config", "hacktrackmmu-cli")
+	dir := filepath.Join(configDir, "hacktrackmmu-cli")
 	// Ensure directory exists
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return "", err

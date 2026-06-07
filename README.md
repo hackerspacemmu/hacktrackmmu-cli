@@ -4,41 +4,6 @@ cli tool for hacktrack cuz why not
 
 ---
 
-## Directory Structure
-
-```
-├── .github/
-│   └── workflows/
-│       └── ci.yml             # CI Action for Tests
-├── bin/                       # Output directory for compiled binaries
-├── cmd/
-│   ├── login.go               # Subcommand to authenticate and retrieve session token
-│   ├── root.go                # Root command & configuration/session pre-run hook
-│   ├── version.go             # Subcommand to display version information
-│   └── view.go                # Subcommand to view member details
-├── internal/
-│   ├── config/
-│   │   ├── config.go          # Config loader struct & env/file configuration
-│   │   └── config_test.go     # Unit tests for the configuration loader
-│   ├── logger/
-│   │   └── logger.go          # slog (Structured Logging) setup
-│   ├── session/
-│   │   └── session.go         # Local JSON session token storage & verification
-│   └── version/
-│       ├── version.go         # Structs and methods for versioning
-│       └── version_test.go    # Unit tests for the versioning package
-├── .gitignore                 # Standard Go Gitignore
-├── LICENSE                    # Project License
-├── Makefile                   # Automation scripts (build, run, test, fmt)
-├── config.yaml.example        # Configuration file template
-├── go.mod                     # Go modules definition
-├── go.sum                     # Go modules locks
-├── main.go                    # Main entry point
-└── mise.toml                  # Local runtime and environment manager config
-```
-
----
-
 ## Getting Started
 
 ### Prerequisites

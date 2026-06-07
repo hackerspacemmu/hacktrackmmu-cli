@@ -23,7 +23,6 @@ type MeetupDetail struct {
 	Meetup 			MeetupFormDetails 	`json:"meetup"` 
 	// MeetupNumber 	int					`json:"meetup_number"`
 	Hosts 			Host				`json:"hosts"`
-	Members 		[]Member 			`json:"members"`
 }
 
 type MeetupFormDetails struct {
@@ -69,12 +68,6 @@ func (h *HostDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-
-type Member struct {
-	ID			int 	`json:"id"`
-	Name 		string 	`json:"name"`
-}
-
 type CreateMeetupPayload struct {
 	Meetup MeetupPostDetails `json:"meetup"`
 }
@@ -87,7 +80,7 @@ type MeetupPostDetails struct {
 	HostID          int     `json:"host_id"`
 }
 
-var createCmd = &cobra.Command{
+var meetupCreateCmd = &cobra.Command{
 	Use:   "create",
 	Short: "Create a new meetup interactively",
 	Long:  `Create a new meetup by interactively choosing the category, date, meetup number, and host.`,
@@ -148,7 +141,7 @@ var createCmd = &cobra.Command{
 			case "2":
 				category = "hackathon"
 			default:
-				fmt.Printf(colorize("Invalid choice. Please enter 1 or 2.\n", ansiRed))
+				fmt.Print(colorize("Invalid choice. Please enter 1 or 2.\n", ansiRed))
 				continue
 			}
 			break
@@ -162,7 +155,7 @@ var createCmd = &cobra.Command{
 				return
 			}
 			if _, err := time.Parse("2006-01-02", dateStr); err != nil {
-				fmt.Printf(colorize("Invalid date format. Please use YYYY-MM-DD.\n", ansiRed))
+				fmt.Print(colorize("Invalid date format. Please use YYYY-MM-DD.\n", ansiRed))
 				continue
 			}
 			meetupDate = dateStr
@@ -183,7 +176,7 @@ var createCmd = &cobra.Command{
 				}
 				num, err := strconv.Atoi(numStr)
 				if err != nil || num <= 0 {
-					fmt.Printf(colorize("Invalid number. Please enter a positive integer.\n", ansiRed))
+					fmt.Print(colorize("Invalid number. Please enter a positive integer.\n", ansiRed))
 					continue
 				}
 				meetupNumber = num
@@ -200,7 +193,7 @@ var createCmd = &cobra.Command{
 				}
 				num, err := strconv.Atoi(numStr)
 				if err != nil || num <= 0 {
-					fmt.Printf(colorize("Invalid number. Please enter a positive integer.\n", ansiRed))
+					fmt.Print(colorize("Invalid number. Please enter a positive integer.\n", ansiRed))
 					continue
 				}
 				hackathonNumber = num
@@ -232,12 +225,12 @@ var createCmd = &cobra.Command{
 				return
 			}
 			if choiceStr == "" {
-				fmt.Printf(colorize("A host must be selected.\n", ansiRed))
+				fmt.Print(colorize("A host must be selected.\n", ansiRed))
 				continue
 			}
 			choiceIdx, err := strconv.Atoi(choiceStr)
 			if err != nil || choiceIdx < 1 || choiceIdx > len(hostChoices) {
-				fmt.Printf(colorize(fmt.Sprintf("Invalid choice. Please enter a number between 1 and %d.\n", len(hostChoices)), ansiRed))
+				fmt.Print(colorize(fmt.Sprintf("Invalid choice. Please enter a number between 1 and %d.\n", len(hostChoices)), ansiRed))
 				continue
 			}
 			selectedHost = hostChoices[choiceIdx-1]
@@ -332,5 +325,5 @@ func promptString(reader *bufio.Reader, prompt string, defaultVal string) (strin
 }
 
 func init() {
-	meetupCmd.AddCommand(createCmd)
+	meetupCmd.AddCommand(meetupCreateCmd)
 }

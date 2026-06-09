@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 
-# hacktrackmmu-cli installer script
-# Allows installing via: curl -fsSL https://raw.githubusercontent.com/hackerspacemmu/hacktrackmmu-cli/main/install.sh | bash
-
 set -euo pipefail
 
 # GitHub Repository Info
 OWNER="hackerspacemmu"
 REPO="hacktrackmmu-cli"
+
+# Global temp directory for cleanup trap
+TMP_DIR=""
+
+cleanup() {
+  if [ -n "${TMP_DIR:-}" ] && [ -d "${TMP_DIR}" ]; then
+    rm -rf "${TMP_DIR}"
+  fi
+}
 
 # Setup color outputs
 setup_colors() {
@@ -107,17 +113,16 @@ main() {
   local download_url="https://github.com/${OWNER}/${REPO}/releases/download/${tag}/${archive_name}"
 
   # Create a secure temporary directory
-  local tmp_dir
-  tmp_dir=$(mktemp -d)
-  trap 'rm -rf "${tmp_dir}"' EXIT
+  TMP_DIR=$(mktemp -d)
+  trap 'cleanup' EXIT
 
   info "Downloading ${download_url}..."
-  if ! curl -fsSL "$download_url" -o "${tmp_dir}/${archive_name}"; then
+  if ! curl -fsSL "$download_url" -o "${TMP_DIR}/${archive_name}"; then
     error "Failed to download release archive. Make sure version ${tag} is published."
   fi
 
   info "Extracting archive..."
-  tar -xzf "${tmp_dir}/${archive_name}" -C "${tmp_dir}"
+  tar -xzf "${TMP_DIR}/${archive_name}" -C "${TMP_DIR}"
 
   # Determine destination directory
   local dest_dir="/usr/local/bin"
@@ -138,10 +143,10 @@ main() {
 
   info "Installing ${REPO} to ${dest_dir}..."
   if [ -w "${dest_dir}" ]; then
-    mv "${tmp_dir}/${REPO}" "${dest_dir}/${REPO}"
+    mv "${TMP_DIR}/${REPO}" "${dest_dir}/${REPO}"
     chmod +x "${dest_dir}/${REPO}"
   else
-    sudo mv "${tmp_dir}/${REPO}" "${dest_dir}/${REPO}"
+    sudo mv "${TMP_DIR}/${REPO}" "${dest_dir}/${REPO}"
     sudo chmod +x "${dest_dir}/${REPO}"
   fi
 

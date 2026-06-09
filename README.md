@@ -15,7 +15,7 @@ cli tool for hacktrack cuz why not
 
 #### Quick Install (via curl)
 
-You can install `hacktrackmmu-cli` using the following curl command:
+You can install `ht` using the following curl command:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/hackerspacemmu/hacktrackmmu-cli/main/install.sh | bash
@@ -39,7 +39,7 @@ curl -fsSL https://raw.githubusercontent.com/hackerspacemmu/hacktrackmmu-cli/mai
 
 ### Root Command
 ```bash
-./bin/hacktrackmmu-cli [flags]
+ht [flags]
 ```
 **Flags:**
 * `--config string`: Specify custom path to config file (defaults to `config.yaml` or `$HOME/.config/hacktrackmmu-cli/config.yaml`).
@@ -110,7 +110,7 @@ You can use the provided `Makefile` to simplify development tasks:
   ```bash
   make build
   ```
-  This places the compiled binary in `bin/hacktrackmmu-cli` with injected build information.
+  This places the compiled binary in `bin/ht` with injected build information.
 
 - **Run the CLI directly**:
   ```bash

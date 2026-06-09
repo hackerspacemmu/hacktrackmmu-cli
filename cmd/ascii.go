@@ -95,7 +95,7 @@ func fetchStats(cfg *config.Config) (daysActive int, members int, meetups int, u
 		return 0, 0, 0, 0, false
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 4*time.Second)
 	defer cancel()
 
 	var wg sync.WaitGroup

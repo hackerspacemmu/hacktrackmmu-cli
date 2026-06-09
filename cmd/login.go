@@ -34,7 +34,7 @@ var loginCmd = &cobra.Command{
 	Long:  `Authenticate with the Hacktrack MMU server using your password.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
-			fmt.Println("Usage: hacktrackmmu-cli login [password]")
+			fmt.Println("Usage: ht login [password]")
 			return
 		}
 

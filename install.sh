@@ -5,6 +5,7 @@ set -euo pipefail
 # GitHub Repository Info
 OWNER="hackerspacemmu"
 REPO="hacktrackmmu-cli"
+BIN_NAME="ht"
 
 # Global temp directory for cleanup trap
 TMP_DIR=""
@@ -109,7 +110,7 @@ main() {
   info "Target: ${os}/${arch} (Version: ${tag})"
 
   # Define file names
-  local archive_name="${REPO}_${version}_${os}_${arch}.tar.gz"
+  local archive_name="${BIN_NAME}_${version}_${os}_${arch}.tar.gz"
   local download_url="https://github.com/${OWNER}/${REPO}/releases/download/${tag}/${archive_name}"
 
   # Create a secure temporary directory
@@ -141,19 +142,19 @@ main() {
     fi
   fi
 
-  info "Installing ${REPO} to ${dest_dir}..."
+  info "Installing ${BIN_NAME} to ${dest_dir}..."
   if [ -w "${dest_dir}" ]; then
-    mv "${TMP_DIR}/${REPO}" "${dest_dir}/${REPO}"
-    chmod +x "${dest_dir}/${REPO}"
+    mv "${TMP_DIR}/${BIN_NAME}" "${dest_dir}/${BIN_NAME}"
+    chmod +x "${dest_dir}/${BIN_NAME}"
   else
-    sudo mv "${TMP_DIR}/${REPO}" "${dest_dir}/${REPO}"
-    sudo chmod +x "${dest_dir}/${REPO}"
+    sudo mv "${TMP_DIR}/${BIN_NAME}" "${dest_dir}/${BIN_NAME}"
+    sudo chmod +x "${dest_dir}/${BIN_NAME}"
   fi
 
-  success "Installed ${REPO} successfully to ${dest_dir}/${REPO}!"
+  success "Installed ${BIN_NAME} successfully to ${dest_dir}/${BIN_NAME}!"
   
   # Check if installed command is in path
-  if ! command -v "${REPO}" >/dev/null 2>&1; then
+  if ! command -v "${BIN_NAME}" >/dev/null 2>&1; then
     info "Note: ${dest_dir} is not in your PATH. You may need to add it to your shell configuration."
   fi
 }

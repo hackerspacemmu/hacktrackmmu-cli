@@ -61,7 +61,7 @@ var viewCmd = &cobra.Command{
 	Long:  `view a member details`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
-			fmt.Println("Wrong number of arguments. Usage: hacktrackmmu-cli view [name]")
+			fmt.Println("Wrong number of arguments. Usage: ht view [name]")
 			return
 		}
 

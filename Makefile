@@ -1,4 +1,4 @@
-BINARY_NAME=hacktrackmmu-cli
+BINARY_NAME=ht
 VERSION?=0.1.0
 
 GOCMD=go

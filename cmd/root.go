@@ -17,7 +17,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "hacktrackmmu-cli",
+	Use:   "ht",
 	Short: "Hacktrack MMU CLI Tool",
 	Long: `A high-performance CLI utility for the MMU Hacktrack platform.
 Configure it using environment variables or a YAML config file.`,
@@ -45,7 +45,7 @@ Configure it using environment variables or a YAML config file.`,
 		if err != nil || s == nil || !s.IsValid() {
 			fmt.Println("WARNING: Session token is missing or has expired!")
 			fmt.Println("Please run the login command to authenticate:")
-			fmt.Println("  hacktrackmmu-cli login [password]")
+			fmt.Println("  ht login [password]")
 			fmt.Println()
 		}
 

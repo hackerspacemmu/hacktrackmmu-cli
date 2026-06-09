@@ -14,7 +14,7 @@ var (
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version information of hacktrackmmu-cli",
+	Short: "Print the version information of ht",
 	Long:  `Print detailed version and build information for this CLI tool.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		info := version.GetInfo()

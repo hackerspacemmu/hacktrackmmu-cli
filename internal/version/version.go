@@ -19,5 +19,5 @@ func GetInfo() Info {
 }
 
 func (i Info) String() string {
-	return fmt.Sprintf("hacktrackmmu-cli %s", i.Version)
+	return fmt.Sprintf("ht %s", i.Version)
 }

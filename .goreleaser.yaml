@@ -1,6 +1,6 @@
 version: 2
 
-project_name: hacktrackmmu-cli
+project_name: ht
 
 before:
   hooks:

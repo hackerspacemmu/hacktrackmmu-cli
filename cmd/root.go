@@ -22,6 +22,10 @@ var rootCmd = &cobra.Command{
 	Long: `A high-performance CLI utility for the MMU Hacktrack platform.
 Configure it using environment variables or a YAML config file.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		if cmd.Name() != "help" && cmd.Name() != "completion" {
+			PrintAscii()
+		}
+
 		loadedCfg, err := config.Load(cfgFile)
 		if err != nil {
 			return fmt.Errorf("failed to load config: %w", err)

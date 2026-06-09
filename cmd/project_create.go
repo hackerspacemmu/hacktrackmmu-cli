@@ -9,18 +9,18 @@ import (
 	"strings"
 	"time"
 
+	"charm.land/huh/v2"
 	"github.com/hackerspace/hacktrackmmu-cli/internal/session"
 	"github.com/spf13/cobra"
-	"charm.land/huh/v2"
 )
 
 type Member struct {
-	Members		[]MemberDetail		`json:"members"`
+	Members []MemberDetail `json:"members"`
 }
 
 type MemberDetails struct {
-	ID 		int 	`json:"id"`
-	Name 	string 	`json:"name"`
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 type CreateProjectPayload struct {

@@ -20,25 +20,25 @@ import (
 )
 
 type MeetupDetail struct {
-	Meetup 			MeetupFormDetails 	`json:"meetup"` 
+	Meetup MeetupFormDetails `json:"meetup"`
 	// MeetupNumber 	int					`json:"meetup_number"`
-	Hosts 			Host				`json:"hosts"`
+	Hosts Host `json:"hosts"`
 }
 
 type MeetupFormDetails struct {
-	ID					int			`json:"id"` 
-	Date 				string		`json:"date"` 
-	Number 				int 		`json:"number"`
-	HackathonNumber		int 		`json:"hackathon_number"`
-	Category 			string 		`json:"category"` 
-	HostID				int  		`json:"host_id"` 
-	CreatedAt 			string 		`json:"created_at"` 
-	UpdatedAt			string 		`json:"updated_at"` 
+	ID              int    `json:"id"`
+	Date            string `json:"date"`
+	Number          int    `json:"number"`
+	HackathonNumber int    `json:"hackathon_number"`
+	Category        string `json:"category"`
+	HostID          int    `json:"host_id"`
+	CreatedAt       string `json:"created_at"`
+	UpdatedAt       string `json:"updated_at"`
 }
 
 type Host struct {
-	YetTohost 	[]HostDetails	`json:"Yet To Host"`
-	HaveHosted 	[]HostDetails	`json:"Have Hosted"`
+	YetTohost  []HostDetails `json:"Yet To Host"`
+	HaveHosted []HostDetails `json:"Have Hosted"`
 }
 
 type HostDetails struct {
@@ -73,11 +73,11 @@ type CreateMeetupPayload struct {
 }
 
 type MeetupPostDetails struct {
-	Date            string  `json:"date"`
-	Category        string  `json:"category"`
-	Number          *int    `json:"number,omitempty"`
-	HackathonNumber *int    `json:"hackathon_number,omitempty"`
-	HostID          int     `json:"host_id"`
+	Date            string `json:"date"`
+	Category        string `json:"category"`
+	Number          *int   `json:"number,omitempty"`
+	HackathonNumber *int   `json:"hackathon_number,omitempty"`
+	HostID          int    `json:"host_id"`
 }
 
 var meetupCreateCmd = &cobra.Command{
@@ -134,7 +134,7 @@ var meetupCreateCmd = &cobra.Command{
 			if err != nil {
 				fmt.Printf("Error reading input: %v\n", err)
 				return
-		}
+			}
 			switch choice {
 			case "1":
 				category = "regular_meetup"
@@ -304,8 +304,6 @@ var meetupCreateCmd = &cobra.Command{
 		}
 	},
 }
-
-
 
 func promptString(reader *bufio.Reader, prompt string, defaultVal string) (string, error) {
 	if defaultVal != "" {

@@ -11,9 +11,9 @@ import (
 	"net/http"
 	"time"
 
+	"charm.land/huh/v2"
 	"github.com/hackerspace/hacktrackmmu-cli/internal/session"
 	"github.com/spf13/cobra"
-	"charm.land/huh/v2"
 )
 
 type CreateUpdateFormData struct {
@@ -22,9 +22,9 @@ type CreateUpdateFormData struct {
 }
 
 type UpdateMember struct {
-	ID       int                `json:"id"`
-	Name     string             `json:"name"`
-	Projects []UpdateProject    `json:"projects"`
+	ID       int             `json:"id"`
+	Name     string          `json:"name"`
+	Projects []UpdateProject `json:"projects"`
 }
 
 type UpdateProject struct {
@@ -97,9 +97,9 @@ var updateCreateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Println(colorize("================================================================================",ansiCyan))
-		fmt.Println(colorize("                         CREATE A NEW UPDATE",ansiBoldCyan))
-		fmt.Println(colorize("================================================================================",ansiCyan))
+		fmt.Println(colorize("================================================================================", ansiCyan))
+		fmt.Println(colorize("                         CREATE A NEW UPDATE", ansiBoldCyan))
+		fmt.Println(colorize("================================================================================", ansiCyan))
 
 		var selectedMemberID int
 

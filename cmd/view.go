@@ -155,8 +155,22 @@ func printMemberDetails(w io.Writer, member MemberDetail) {
 		statusColor = ansiYellow
 	}
 
+	ideaTalksCount := 0
+	progressTalksCount := 0
+	for _, project := range member.Projects {
+		for _, update := range project.Updates {
+			cat := update.Category
+			if cat == "idea_talk" || cat == "0" {
+				ideaTalksCount++
+			} else {
+				progressTalksCount++
+			}
+		}
+	}
+
 	fmt.Fprintf(w, "  Status:                    %s\n", colorize(statusStr, statusColor))
-	fmt.Fprintf(w, "  Progress Talks:            %s\n", colorize(fmt.Sprintf("%d", member.ProgressTalkNum), ansiBold))
+	fmt.Fprintf(w, "  Idea Talks:                %s\n", colorize(fmt.Sprintf("%d", ideaTalksCount), ansiBold))
+	fmt.Fprintf(w, "  Progress Talks:            %s\n", colorize(fmt.Sprintf("%d", progressTalksCount), ansiBold))
 	fmt.Fprintf(w, "  Duration Active:           %s\n", colorize(formatStr(member.DurationActive), ansiBold))
 	fmt.Fprintf(w, "  Avg Time Between Talks:    %s\n", colorize(formatStr(member.AvgTimeBetweenTalks), ansiBold))
 	fmt.Fprintf(w, "  Meetups Since Last Talk:   %s\n", colorize(fmt.Sprintf("%d", member.MeetupsSinceLastTalk), ansiBold))

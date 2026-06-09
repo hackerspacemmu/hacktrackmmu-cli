@@ -42,7 +42,6 @@ curl -fsSL https://raw.githubusercontent.com/hackerspacemmu/hacktrackmmu-cli/mai
 ht [flags]
 ```
 **Flags:**
-* `--config string`: Specify custom path to config file (defaults to `config.yaml` or `$HOME/.config/hacktrackmmu-cli/config.yaml`).
 * `-v, --verbose`: Enable debug level structured logs (overrides `log_level` config value).
 
 ---

@@ -35,6 +35,71 @@ curl -fsSL https://raw.githubusercontent.com/hackerspacemmu/hacktrackmmu-cli/mai
 
 ---
 
+## Usage Guide
+
+### Root Command
+```bash
+./bin/hacktrackmmu-cli [flags]
+```
+**Flags:**
+* `--config string`: Specify custom path to config file (defaults to `config.yaml` or `$HOME/.config/hacktrackmmu-cli/config.yaml`).
+* `-v, --verbose`: Enable debug level structured logs (overrides `log_level` config value).
+
+---
+
+### Commands
+
+#### 1. Authenticate (`login`)
+Authenticate with the Hacktrack MMU server using your password.
+```bash
+ht login [password]
+```
+
+#### 2. Ping Server (`ping`)
+Ping the Hacktrack API server before running other requests (recommended when cold starting).
+```bash
+ht ping
+```
+
+#### 3. View Member Details (`view`)
+View details of a specific member.
+```bash
+ht view [name]
+```
+
+#### 4. Meetup Management (`meetup`)
+Manage meetups.
+* **Create a meetup interactively**:
+  ```bash
+  ht meetup create
+  ```
+
+#### 5. Project Management (`project`)
+Manage projects.
+* **Create a project**:
+  ```bash
+  ht project create
+  ```
+
+#### 6. Update Management (`update`)
+Manage updates/contributions for members.
+* **Create an update interactively**:
+  ```bash
+  ht update create
+  ```
+
+#### 7. Version (`version`)
+Print compilation details:
+```bash
+ht version
+```
+Print in JSON format:
+```bash
+ht version --json
+```
+
+---
+
 ## Building and Running
 
 You can use the provided `Makefile` to simplify development tasks:
@@ -69,6 +134,44 @@ You can use the provided `Makefile` to simplify development tasks:
   make install
   ```
 
+  ---
+
+### Adding New Commands
+
+  To add a new subcommand to the CLI, use the `cobra-cli` binary:
+
+  ```bash
+# If not already installed:
+  go install github.com/spf13/cobra-cli@latest
+
+# Add a command:
+  cobra-cli add <command-name>
+  ```
+
+  Alternatively, you can manually create a new file in `cmd/<command-name>.go` following the pattern in `cmd/version.go`:
+
+  ```go
+  package cmd
+
+  import (
+          "fmt"
+          "github.com/spf13/cobra"
+         )
+
+  var myCmd = &cobra.Command{
+Use:   "mycmd",
+           Short: "A brief description",
+           Run: func(cmd *cobra.Command, args []string) {
+cfg := GetConfig() // Access the configuration
+         fmt.Println("Running mycmd...")
+           },
+  }
+
+func init() {
+    rootCmd.AddCommand(myCmd)
+}
+```
+
 ---
 
 ## Configuration
@@ -89,64 +192,3 @@ log_level: info
 api_url: "api-url"
 ```
 
----
-
-## Usage Guide
-
-### Root Command
-```bash
-./bin/hacktrackmmu-cli [flags]
-```
-**Flags:**
-* `--config string`: Specify custom path to config file.
-* `-v, --verbose`: Enable debug level structured logs (overrides `log_level` config value).
-
----
-
-### Version Command
-Print compilation details:
-```bash
-./bin/hacktrackmmu-cli version
-```
-Print in JSON format (e.g., for automated scripting or debugging):
-```bash
-./bin/hacktrackmmu-cli version --json
-```
-
----
-
-### Adding New Commands
-
-To add a new subcommand to the CLI, use the `cobra-cli` binary:
-
-```bash
-# If not already installed:
-go install github.com/spf13/cobra-cli@latest
-
-# Add a command:
-cobra-cli add <command-name>
-```
-
-Alternatively, you can manually create a new file in `cmd/<command-name>.go` following the pattern in `cmd/version.go`:
-
-```go
-package cmd
-
-import (
-	"fmt"
-	"github.com/spf13/cobra"
-)
-
-var myCmd = &cobra.Command{
-	Use:   "mycmd",
-	Short: "A brief description",
-	Run: func(cmd *cobra.Command, args []string) {
-		cfg := GetConfig() // Access the configuration
-		fmt.Println("Running mycmd...")
-	},
-}
-
-func init() {
-	rootCmd.AddCommand(myCmd)
-}
-```

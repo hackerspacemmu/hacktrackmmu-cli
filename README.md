@@ -13,6 +13,16 @@ cli tool for hacktrack cuz why not
 
 ### Installation
 
+#### Quick Install (via curl)
+
+You can install `hacktrackmmu-cli` using the following curl command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/hackerspacemmu/hacktrackmmu-cli/main/install.sh | bash
+```
+
+#### From Source
+
 1. Clone or copy this repository to your local machine:
    ```bash
    git clone https://github.com/hackerspacemmu/hacktrackmmu-cli.git

@@ -6,11 +6,6 @@ cli tool for hacktrack cuz why not
 
 ## Getting Started
 
-### Prerequisites
-
-- [Go](https://go.dev/doc/install) (1.21+ recommended, currently configured for `latest` via `mise`)
-- `make` (optional, for running task automation)
-
 ### Installation
 
 #### Quick Install (via curl)
@@ -100,6 +95,11 @@ ht version --json
 ---
 
 ## Building and Running
+
+### Prerequisites
+
+- [Go](https://go.dev/doc/install) (1.21+ recommended, currently configured for `latest` via `mise`)
+- `make` (optional, for running task automation)
 
 You can use the provided `Makefile` to simplify development tasks:
 

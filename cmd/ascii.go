@@ -177,18 +177,18 @@ func daysBetween(start, end time.Time) int {
 }
 
 func PrintAscii() {
-	daysActive, members, meetups, updates, success := fetchStats(cfg)
+	// daysActive, members, meetups, updates, success := fetchStats(cfg)
 
-	daysActiveStr := "N/A"
-	membersStr := "N/A"
-	meetupsStr := "N/A"
-	updatesStr := "N/A"
-	if success {
-		daysActiveStr = fmt.Sprintf("%d", daysActive)
-		membersStr = fmt.Sprintf("%d", members)
-		meetupsStr = fmt.Sprintf("%d", meetups)
-		updatesStr = fmt.Sprintf("%d", updates)
-	}
+	// daysActiveStr := "N/A"
+	// membersStr := "N/A"
+	// meetupsStr := "N/A"
+	// updatesStr := "N/A"
+	// if success {
+	// 	daysActiveStr = fmt.Sprintf("%d", daysActive)
+	// 	membersStr = fmt.Sprintf("%d", members)
+	// 	meetupsStr = fmt.Sprintf("%d", meetups)
+	// 	updatesStr = fmt.Sprintf("%d", updates)
+	// }
 
 	lines := []string{
 		"",
@@ -207,12 +207,12 @@ func PrintAscii() {
 		"",
 	}
 
-	lines[4] = padRight(lines[4], 50) + colorYellow + "Statistics: " + colorReset
-	lines[5] = padRight(lines[5], 50) + colorWhite + "--------------" + colorReset
-	lines[6] = padRight(lines[6], 50) + colorWhite + "Members: " + colorReset + colorYellow + membersStr + colorReset
-	lines[7] = padRight(lines[7], 50) + colorWhite + "Meetups: " + colorReset + colorYellow + meetupsStr + colorReset
-	lines[8] = padRight(lines[8], 50) + colorWhite + "Updates: " + colorReset + colorYellow + updatesStr + colorReset
-	lines[9] = padRight(lines[9], 50) + colorWhite + "Days Active: " + colorReset + colorYellow + daysActiveStr + colorReset
+	// lines[4] = padRight(lines[4], 50) + colorYellow + "Statistics: " + colorReset
+	// lines[5] = padRight(lines[5], 50) + colorWhite + "--------------" + colorReset
+	// lines[6] = padRight(lines[6], 50) + colorWhite + "Members: " + colorReset + colorYellow + membersStr + colorReset
+	// lines[7] = padRight(lines[7], 50) + colorWhite + "Meetups: " + colorReset + colorYellow + meetupsStr + colorReset
+	// lines[8] = padRight(lines[8], 50) + colorWhite + "Updates: " + colorReset + colorYellow + updatesStr + colorReset
+	// lines[9] = padRight(lines[9], 50) + colorWhite + "Days Active: " + colorReset + colorYellow + daysActiveStr + colorReset
 
 	for _, line := range lines {
 		fmt.Println(line)

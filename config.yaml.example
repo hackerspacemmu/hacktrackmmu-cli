@@ -1,5 +1,5 @@
 # Log level: debug, info, warn, error
 log_level: info
 
-api_url: "https://hacktrackmmu.herokuapp.com/api/v1"
+api_url: "http://localhost:3000/api/v1"
 
